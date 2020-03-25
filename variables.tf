@@ -37,9 +37,3 @@ variable "output_path" {
   description = "Path to the function's deployment package within local filesystem. eg: /path/to/lambda.zip"
   default     = "lambda.zip"
 }
-
-variable "environment" {
-  description = "Environment configuration for the Lambda function"
-  type        = "map"
-  default     = {}
-}
