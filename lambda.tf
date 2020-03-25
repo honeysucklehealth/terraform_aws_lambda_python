@@ -20,12 +20,12 @@ resource "null_resource" "install_python_dependencies" {
     command = "bash ${path.module}/scripts/py_pkg.sh"
 
     environment = {
-      source_code_path = "${var.source_code_path}"
-      path_cwd         = "${path.cwd}"
-      path_module      = "${path.module}"
-      runtime          = "${var.runtime}"
-      function_name    = "${var.function_name}"
-      random_string    = "${random_string.name.result}"
+      source_code_path = var.source_code_path
+      path_cwd         = path.cwd
+      path_module      = path.module
+      runtime          = var.runtime
+      function_name    = var.function_name
+      random_string    = random_string.name.result
     }
   }
 }
@@ -34,7 +34,7 @@ data "archive_file" "lambda_zip" {
   depends_on  = [null_resource.install_python_dependencies]
   type        = "zip"
   source_dir  = "${path.cwd}/lambda_pkg_${random_string.name.result}/"
-  output_path = "${var.output_path}"
+  output_path = var.output_path
 }
 
 resource "aws_lambda_function" "lambda" {
